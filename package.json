@@ -1,20 +1,52 @@
 {
   "name": "@avol.io/react-mermaid",
-  "version": "0.1.0",
-  "description": "React component that renders Mermaid diagrams with zoom, pan and fullscreen support",
+  "version": "0.1.1",
+  "description": "React component for rendering Mermaid diagrams with zoom, pan, and fullscreen support.",
   "license": "GPL-3.0-or-later",
   "type": "module",
+  "homepage": "https://www.avol.io/react-mermaid",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avol-io/react-mermaid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avol-io/react-mermaid/issues"
+  },
+  "keywords": [
+    "react",
+    "mermaid",
+    "diagram",
+    "diagrams",
+    "flowchart",
+    "uml",
+    "markdown",
+    "visualization",
+    "zoom",
+    "pan",
+    "fullscreen",
+    "vite",
+    "storybook"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "main": "./dist/react-mermaid.umd.cjs",
   "module": "./dist/react-mermaid.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/react-mermaid.js",
       "require": "./dist/react-mermaid.umd.cjs"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "vite build",

@@ -2,7 +2,7 @@
 
 > React component that renders [Mermaid](https://mermaid.js.org/) diagrams with zoom, pan, and fullscreen support.
 
-[![Storybook](https://img.shields.io/badge/Storybook-docs-ff4785?logo=storybook&logoColor=white)](https://avol-io.github.io/react-mermaid/)
+[![Storybook](https://img.shields.io/badge/Storybook-docs-ff4785?logo=storybook&logoColor=white)](https://www.avol.io/react-mermaid/)
 [![npm](https://img.shields.io/npm/v/@avol.io/react-mermaid?color=cb3837&logo=npm)](https://www.npmjs.com/package/@avol.io/react-mermaid)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
@@ -89,7 +89,7 @@ Override styles with higher specificity:
 
 ## Live docs
 
-https://avol-io.github.io/react-mermaid/
+https://www.avol.io/react-mermaid/
 
 ---
 
