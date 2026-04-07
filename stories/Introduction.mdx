@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Introduction" />
+
+# @avol.io/react-mermaid
+
+A React component that renders **[Mermaid](https://mermaid.js.org/)** diagrams from text input,
+with built-in **zoom and pan**, **fullscreen**, and an **error modal** for invalid syntax.
+
+---
+
+## Installation
+
+```bash
+npm install @avol.io/react-mermaid
+```
+
+### Peer dependencies
+
+This package ships **without** its core dependencies bundled. Install them alongside:
+
+```bash
+npm install react react-dom mermaid react-zoom-pan-pinch
+```
+
+| Peer dependency | Required version |
+|---|---|
+| `react` | `>=19` |
+| `react-dom` | `>=19` |
+| `mermaid` | `>=11` |
+| `react-zoom-pan-pinch` | `>=3` |
+
+---
+
+## Quick start
+
+```tsx
+import { MermaidDiagram } from '@avol.io/react-mermaid'
+
+export function App() {
+  return (
+    <MermaidDiagram
+      chart={`
+        graph TD
+          A[Start] --> B{Decision}
+          B -- Yes --> C[Done]
+          B -- No  --> D[Skip]
+      `}
+      width="100%"
+      height="400px"
+    />
+  )
+}
+```
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `chart` | `string` | required | Mermaid source text |
+| `width` | `string` | `"100%"` | CSS width of the container |
+| `height` | `string` | `"400px"` | CSS height of the container |
+| `config` | `MermaidConfig` | — | Options forwarded to `mermaid.initialize()` |
+
+---
+
+## Styling
+
+No CSS import needed. On first render a single `<style id="avol-react-mermaid-styles">` tag is
+injected into `<head>` and reused by all instances.
+
+Override styles with higher specificity:
+
+```css
+.react-mermaid-toolbar button { background: #your-brand-color; }
+```
+
+---
+
+## License
+
+GPL-3.0-or-later &copy; [avol.io](https://avol.io)
+
+- [GitHub](https://github.com/avol-io/react-mermaid)
+- [npm](https://www.npmjs.com/package/@avol.io/react-mermaid)
+- [Mermaid docs](https://mermaid.js.org/)
