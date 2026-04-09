@@ -1,9 +1,47 @@
+// MermaidDiagram.tsx
 import { useEffect, useRef, useState, useId, useCallback } from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
+import type { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch'
 import mermaid from 'mermaid'
 import { injectStyles } from '../../utils/injectStyles'
 import { Modal } from '../Modal/Modal'
 import type { MermaidConfig } from 'mermaid'
+
+function useFitToScreen(wrapperRef: React.RefObject<HTMLDivElement | null>) {
+  const controlsRef = useRef<ReactZoomPanPinchRef>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  const fitToScreen = useCallback((animate = 200) => {
+  const wrapper = wrapperRef.current
+  const controls = controlsRef.current
+  const svgEl = contentRef.current?.querySelector('svg')
+  if (!wrapper || !controls || !svgEl) return
+
+  const viewBox = svgEl.getAttribute('viewBox')?.split(' ').map(Number)
+  if (viewBox && viewBox.length >= 4) {
+    svgEl.setAttribute('width',  String(viewBox[2]))
+    svgEl.setAttribute('height', String(viewBox[3]))
+  }
+  svgEl.style.maxWidth = 'none'
+
+  const box = svgEl.getBBox()
+  if (!box.width || !box.height) return
+
+  const { width, height } = wrapper.getBoundingClientRect()
+  const padding = 24
+  const scale = Math.min(
+    (width  - padding * 2) / box.width,
+    (height - padding * 2) / box.height,
+  )
+  const nextScale = Number.isFinite(scale) && scale > 0 ? scale : 1
+  const x = (width  - box.width  * nextScale) / 2 - box.x * nextScale
+  const y = (height - box.height * nextScale) / 2 - box.y * nextScale
+
+  controls.setTransform(x, y, nextScale, animate)
+}, [wrapperRef])
+
+  return { controlsRef, contentRef, fitToScreen }
+}
 
 export interface MermaidDiagramProps {
   /** Mermaid diagram source text */
@@ -30,13 +68,19 @@ export function MermaidDiagram({
   const [error, setError] = useState<string | null>(null)
   const [errorModalOpen, setErrorModalOpen] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
+
   const configRef = useRef(config)
   configRef.current = config
 
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const { controlsRef, contentRef, fitToScreen } = useFitToScreen(wrapperRef)
+
+  // Inizializza mermaid una volta sola
   useEffect(() => {
     mermaid.initialize({ startOnLoad: false, ...configRef.current })
   }, [])
 
+  // Render del chart
   const render = useCallback(async () => {
     try {
       setError(null)
@@ -52,9 +96,35 @@ export function MermaidDiagram({
 
   useEffect(() => { void render() }, [render])
 
+
+  useEffect(() => {
+    if (!svg) return
+    const raf = requestAnimationFrame(() => fitToScreen(0))
+    return () => cancelAnimationFrame(raf)
+  }, [svg, fitToScreen])
+
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => fitToScreen(200))
+    return () => cancelAnimationFrame(raf)
+  }, [fullscreen, fitToScreen])
+
+
+  useEffect(() => {
+    const el = wrapperRef.current
+    if (!el || !svg) return
+    const ro = new ResizeObserver(() => fitToScreen(0))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [svg, fitToScreen])
+
   return (
     <div
-      className={['react-mermaid-wrapper', fullscreen && 'react-mermaid-fullscreen'].filter(Boolean).join(' ')}
+      ref={wrapperRef}
+      className={[
+        'react-mermaid-wrapper',
+        fullscreen && 'react-mermaid-fullscreen',
+      ].filter(Boolean).join(' ')}
       style={{ width, height }}
       role="img"
       aria-label="Mermaid diagram"
@@ -78,7 +148,11 @@ export function MermaidDiagram({
           )}
         </>
       ) : (
-        <TransformWrapper minScale={0.1} maxScale={10} centerOnInit>
+        <TransformWrapper
+          onInit={(ref) => { (controlsRef as React.RefObject<ReactZoomPanPinchRef>).current = ref }}
+          minScale={0.1}
+          maxScale={10}
+        >
           {({ zoomIn, zoomOut, resetTransform }) => (
             <>
               {/* top-right: fullscreen toggle */}
@@ -88,19 +162,19 @@ export function MermaidDiagram({
                   title={fullscreen ? 'Exit fullscreen' : 'Fullscreen'}
                   aria-label={fullscreen ? 'Exit fullscreen' : 'Fullscreen'}
                 >
-                  {fullscreen ? '⛶' : '⛶'}
+                  ⛶
                 </button>
               </div>
 
               {/* bottom-right: zoom + reset */}
               <div className="react-mermaid-toolbar react-mermaid-toolbar--bottom">
-                <button onClick={() => zoomIn()} title="Zoom in" aria-label="Zoom in">+</button>
-                <button onClick={() => zoomOut()} title="Zoom out" aria-label="Zoom out">&#x2212;</button>
+                <button onClick={() => zoomIn()}         title="Zoom in"    aria-label="Zoom in">+</button>
+                <button onClick={() => zoomOut()}        title="Zoom out"   aria-label="Zoom out">&#x2212;</button>
                 <button onClick={() => resetTransform()} title="Reset view" aria-label="Reset view">&#x21BA;</button>
               </div>
 
               <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
-                <div dangerouslySetInnerHTML={{ __html: svg }} />
+                <div ref={contentRef} dangerouslySetInnerHTML={{ __html: svg }} />
               </TransformComponent>
             </>
           )}
