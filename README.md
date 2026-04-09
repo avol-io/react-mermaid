@@ -1,9 +1,9 @@
-# @avol.io/react-mermaid
+# @avol-io/react-mermaid
 
 > React component that renders [Mermaid](https://mermaid.js.org/) diagrams with zoom, pan, and fullscreen support.
 
 [![Storybook](https://img.shields.io/badge/Storybook-docs-ff4785?logo=storybook&logoColor=white)](https://www.avol.io/react-mermaid/)
-[![npm](https://img.shields.io/npm/v/@avol.io/react-mermaid?color=cb3837&logo=npm)](https://www.npmjs.com/package/@avol.io/react-mermaid)
+[![npm](https://img.shields.io/npm/v/@avol-io/react-mermaid?color=cb3837&logo=npm)](https://www.npmjs.com/package/@avol-io/react-mermaid)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 ---
@@ -11,7 +11,7 @@
 ## Installation
 
 ```bash
-npm install @avol.io/react-mermaid
+npm install @avol-io/react-mermaid
 ```
 
 ### Peer dependencies
@@ -32,7 +32,7 @@ npm install react react-dom mermaid react-zoom-pan-pinch
 ## Usage
 
 ```tsx
-import { MermaidDiagram } from '@avol.io/react-mermaid'
+import { MermaidDiagram } from '@avol-io/react-mermaid'
 
 export function App() {
   return (
