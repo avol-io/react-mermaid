@@ -1,6 +1,6 @@
 {
   "name": "@avol-io/react-mermaid",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React component for rendering Mermaid diagrams with zoom, pan, and fullscreen support.",
   "license": "GPL-3.0-or-later",
   "type": "module",
