@@ -67,6 +67,7 @@ export function Navbar() {
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
+    className='nav-links'
       href={href}
       style={{
         padding: '6px 12px',
