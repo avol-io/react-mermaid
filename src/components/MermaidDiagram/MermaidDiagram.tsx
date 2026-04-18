@@ -75,6 +75,8 @@ export interface MermaidDiagramProps {
    * @default true
    */
   enableDrawio?: boolean
+  /** Additional CSS class applied to the wrapper element */
+  className?: string
 }
 
 export function MermaidDiagram({
@@ -85,6 +87,7 @@ export function MermaidDiagram({
   enableDownloadSvg = true,
   enableDownloadMmd = true,
   enableDrawio = true,
+  className
 }: MermaidDiagramProps) {
   injectStyles()
 
@@ -198,6 +201,7 @@ export function MermaidDiagram({
       className={[
         'react-mermaid-wrapper',
         fullscreen && 'react-mermaid-fullscreen',
+        className,          // ← aggiunto
       ].filter(Boolean).join(' ')}
       style={{ width, height }}
       role="img"
