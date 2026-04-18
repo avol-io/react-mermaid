@@ -1,2 +1,4 @@
 node_modules
 .nojekyll
+dist
+.DS_Store

@@ -1,0 +1,73 @@
+# @avol-io/react-mermaid
+
+> React component for rendering Mermaid diagrams with zoom, pan, fullscreen, download and draw.io integration.
+
+## What it is
+
+@avol-io/react-mermaid is an open-source React 19 component library that renders Mermaid diagram source code into interactive SVG diagrams. It wraps react-zoom-pan-pinch for smooth zoom and pan, and adds a full toolbar UI.
+
+## Key features
+
+- Renders any Mermaid diagram type (flowchart, sequence, class, git, etc.)
+- Smooth wheel zoom following the cursor, directional pan controls (3x3 button grid)
+- Fullscreen overlay mode
+- Download as SVG or .mmd source file (each option individually toggleable via props)
+- Open diagram directly in draw.io via URL import
+- CSS custom properties (tokens) for full theming without CSS imports
+- Styles are auto-injected into <head> — no bundler config needed
+- Zero runtime dependencies beyond peer deps
+
+## Installation
+
+npm install @avol-io/react-mermaid
+npm install react react-dom mermaid react-zoom-pan-pinch
+
+## Peer dependencies
+
+- react >= 19
+- react-dom >= 19
+- mermaid >= 11
+- react-zoom-pan-pinch >= 3
+
+## Basic usage
+
+```tsx
+import { MermaidDiagram } from '@avol-io/react-mermaid'
+
+<MermaidDiagram
+  chart="graph TD; A-->B"
+  width="100%"
+  height="400px"
+/>
+```
+
+## Props
+
+- chart: string (required) — Mermaid source text
+- width: string (default "100%") — CSS width
+- height: string (default "400px") — CSS height
+- config: MermaidConfig — passed to mermaid.initialize()
+- enableDownloadSvg: boolean (default true)
+- enableDownloadMmd: boolean (default true)
+- enableDrawio: boolean (default true)
+- className: string — extra CSS class on the wrapper
+
+## Theming
+
+All colors and sizes are CSS custom properties prefixed with --mermaid-*.
+Override on :root for global theming or on a wrapper class for per-instance theming.
+
+Key tokens: --mermaid-bg, --mermaid-border-color, --mermaid-border-radius,
+--mermaid-toolbar-bg, --mermaid-toolbar-color, --mermaid-toolbar-focus-ring,
+--mermaid-dropdown-bg, --mermaid-fullscreen-bg
+
+## Links
+
+- npm: https://www.npmjs.com/package/@avol-io/react-mermaid
+- GitHub: https://github.com/avol-io/react-mermaid
+- Docs / Storybook: https://www.avol.io/react-mermaid/storybook
+- Homepage: https://www.avol.io/react-mermaid/
+
+## License
+
+MIT © avol.io
