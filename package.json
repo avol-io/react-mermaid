@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@avol-io/react-mermaid": "latest",
+    "@avol-io/react-mermaid": "^0.3.1",
     "@codemirror/commands": "^6.7.1",
     "@codemirror/lang-markdown": "^6.3.1",
     "@codemirror/language": "^6.10.8",
@@ -17,9 +17,9 @@
     "@codemirror/theme-one-dark": "^6.1.2",
     "@codemirror/view": "^6.35.3",
     "codemirror": "^6.0.1",
-    "mermaid": "^11.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "mermaid": "^11.14.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-zoom-pan-pinch": "^3.7.0"
   },
   "devDependencies": {
