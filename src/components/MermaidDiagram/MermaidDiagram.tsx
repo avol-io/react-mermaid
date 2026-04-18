@@ -125,18 +125,23 @@ export function MermaidDiagram({
     mermaid.initialize({ startOnLoad: false, ...configRef.current })
   }, [])
 
+  const renderVersion = useRef(0)
+
   const render = useCallback(async () => {
-    try {
-      setError(null)
-      document.getElementById(`mermaid-${id}`)?.remove()
-      const { svg: rendered } = await mermaid.render(`mermaid-${id}`, chart)
-      setSvg(rendered)
-    } catch (err) {
-      setSvg('')
-      document.getElementById(`mermaid-${id}`)?.remove()
-      setError(err instanceof Error ? err.message : String(err))
-    }
-  }, [chart, id])
+  const version = ++renderVersion.current        // ← nuovo
+  try {
+    setError(null)
+    document.getElementById(`mermaid-${id}`)?.remove()
+    const { svg: rendered } = await mermaid.render(`mermaid-${id}`, chart)
+    if (version !== renderVersion.current) return // ← nuovo
+    setSvg(rendered)
+  } catch (err) {
+    if (version !== renderVersion.current) return // ← nuovo
+    setSvg('')
+    document.getElementById(`mermaid-${id}`)?.remove()
+    setError(err instanceof Error ? err.message : String(err))
+  }
+}, [chart, id])
 
   useEffect(() => { void render() }, [render])
 
