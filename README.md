@@ -1,4 +1,5 @@
 # @avol-io/react-mermaid
+<a href="https://www.avol.io/react-mermaid" target="_blank" rel="noopener noreferrer"><img src="./banner.jpg" alt="banner" style="max-width: 70%; height: auto; margin:auto"/></a>
 
 > React component that renders [Mermaid](https://mermaid.js.org/) diagrams with zoom, pan, directional controls, fullscreen, download, and draw.io integration.
 
