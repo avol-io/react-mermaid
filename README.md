@@ -4,7 +4,7 @@
 
 [![Storybook](https://img.shields.io/badge/Storybook-docs-ff4785?logo=storybook&logoColor=white)](https://www.avol.io/react-mermaid/)
 [![npm](https://img.shields.io/npm/v/@avol-io/react-mermaid?color=cb3837&logo=npm)](https://www.npmjs.com/package/@avol-io/react-mermaid)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![license](https://img.shields.io/npm/l/@avol-io/react-mermaid)](https://github.com/avol-io/2chatty/blob/main/LICENSE)
 
 ---
 
@@ -153,4 +153,4 @@ https://www.avol.io/react-mermaid/
 
 ## License
 
-GPL-3.0-or-later &copy; [avol.io](https://avol.io)
+MIT &copy; [avol.io](https://avol.io)
