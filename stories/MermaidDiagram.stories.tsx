@@ -8,6 +8,9 @@ const meta = {
   args: {
     width: '640px',
     height: '380px',
+    enableDownloadSvg: true,
+    enableDownloadMmd: true,
+    enableDrawio: true,
   },
 } satisfies Meta<typeof MermaidDiagram>
 
@@ -58,5 +61,26 @@ export const ParseError: Story = {
   args: {
     chart: 'this is not valid mermaid !!!',
     height: '160px',
+  },
+}
+
+export const NoToolbar: Story = {
+  name: 'Download & draw.io disabled',
+  args: {
+    chart: `graph LR
+  A[Input] --> B[Process] --> C[Output]`,
+    enableDownloadSvg: false,
+    enableDownloadMmd: false,
+    enableDrawio: false,
+  },
+}
+
+export const OnlySvgDownload: Story = {
+  name: 'SVG download only',
+  args: {
+    chart: `graph LR
+  A[Input] --> B[Process] --> C[Output]`,
+    enableDownloadMmd: false,
+    enableDrawio: false,
   },
 }
